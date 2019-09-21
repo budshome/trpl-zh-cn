@@ -1,8 +1,16 @@
 # 前言
 
-> [foreword.md](https://github.com/rust-lang/book/blob/master/second-edition/src/foreword.md)
-> <br>
-> commit 5e085bd1add34aec03416e891751552b439dde52
+> **_声明_**
+> 
+> `《Rust 程序设计语言（第二版 & 2018 edition）》`由 [KaiserY 以及 Rust 中文社区](https://github.com/KaiserY) 翻译，源码仓库在 [GitHub](https://github.com/budshome/trpl-zh-cn)，翻译自 `Rust` 官方书籍 [*The Rust Programming Language*](https://github.com/rust-lang/book/tree/master/src)。
+> 
+> 感谢 `KaiserY 以及 Rust 中文社区`和 `Rust 官方团队`的无私奉献。
+> 
+> **本站点仅为方便学习和查阅等相关用途，书籍和译本的所有内容和相关权利属于书籍编写者和翻译者。**
+> 
+> 若有任何不当，请联系 `linshi@budshome.com` 删除。
+> 
+> 💥 **更新时间：2019-09-21**
 
 虽然不是那么明显，但 Rust 程序设计语言的本质在于 **赋能**（*empowerment*）：无论你现在编写的是何种代码，Rust 能让你在更为广泛的编程领域走得更远，写出自信。
 
@@ -17,15 +25,3 @@ Rust 破除了这些障碍，其消除了旧的陷阱并提供了伴你一路同
 本书全面介绍了 Rust 为用户赋予的能力。其内容平易近人，致力于帮助你提升 Rust 的知识，并且提升你作为程序员整体的理解与自信。那么让我们准备深入学习 Rust 吧（打开新世界的大门 :)） —— 欢迎加入 Rust 社区！
 
 — Nicholas Matsakis 和 Aaron Turon
-
-## 声明
-
-`Rust 程序设计语言（第二版 & 2018 edition）`由 [KaiserY](https://github.com/KaiserY) 翻译，源码仓库在 [GitHub](https://github.com/KaiserY/trpl-zh-cn)，翻译自`Rust`官方书籍 [*The Rust Programming Language*](https://github.com/rust-lang/book/tree/master/src)。
-
-感谢`KaiserY`和`Rust团队`的无私奉献。
-
-**本站点仅为方便学习和查阅等相关用途，书籍和译本的所有内容和相关权利属于书籍编写者和翻译者。**
-
-若有任何不当，请联系`linshi@budshome.com`删除。
-
-💥 **更新时间：2019-09-21**
