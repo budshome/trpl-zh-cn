@@ -10,7 +10,7 @@
 > 
 > 若有任何不当，请联系 `linshi@budshome.com` 删除。
 > 
-> 💥 **更新时间：2019-12-21**
+> 💥 **更新时间：2020-02-13**
 
 > [foreword.md](https://github.com/rust-lang/book/blob/master/src/foreword.md)
 > <br>
