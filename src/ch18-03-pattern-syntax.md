@@ -2,9 +2,9 @@
 
 > [ch18-03-pattern-syntax.md](https://github.com/rust-lang/book/blob/master/src/ch18-03-pattern-syntax.md)
 > <br>
-> commit c231bf7e49446e78b147a814323d8f25013a605b
+> commit 86f0ae4831f24b3c429fa4845b900b4cad903a8b
 
-通过本书我们已领略过许多不同类型模式的例子。本节会统一列出所有在模式中有效的语法并且会阐述你为什么可能会希望使用其中的每一个。
+通过本书我们已领略过许多不同类型模式的例子。本节会统一列出所有在模式中有效的语法并且会阐述你为什么可能会希望使用其中的每一个语法。
 
 ### 匹配字面值
 
@@ -46,7 +46,7 @@ fn main() {
 
 <span class="caption">示例 18-11: 一个 `match` 语句其中一个分支引入了覆盖变量 `y`</span>
 
-让我们看看当 `match` 语句运行的时候发生了什么。第一个匹配分支的模式并不匹配 `x` 中定义的值，所以继续。
+让我们看看当 `match` 语句运行的时候发生了什么。第一个匹配分支的模式并不匹配 `x` 中定义的值，所以代码继续执行。
 
 第二个匹配分支中的模式引入了一个新变量 `y`，它会匹配任何 `Some` 中的值。因为我们在 `match` 表达式的新作用域中，这是一个新变量，而不是开头声明为值 10 的那个 `y`。这个新的 `y` 绑定会匹配任何 `Some` 中的值，在这里是 `x` 中的值。因此这个 `y` 绑定了 `x` 中 `Some` 内部的值。这个值是 5，所以这个分支的表达式将会执行并打印出 `Matched, y = 5`。
 
@@ -54,11 +54,11 @@ fn main() {
 
 一旦 `match` 表达式执行完毕，其作用域也就结束了，同理内部 `y` 的作用域也结束了。最后的 `println!` 会打印 `at the end: x = Some(5), y = 10`。
 
-为了创建能够比较外部 `x` 和 `y` 的值，而不引入覆盖变量的 `match` 表达式，我们需要相应的使用带有条件的匹配守卫（match guard）。我们稍后将在“匹配守卫提供的额外条件” 这一小节讨论匹配守卫。
+为了创建能够比较外部 `x` 和 `y` 的值，而不引入覆盖变量的 `match` 表达式，我们需要相应地使用带有条件的匹配守卫（match guard）。我们稍后将在 [“匹配守卫提供的额外条件”](#extra-conditionals-with-match-guards) 这一小节讨论匹配守卫。
 
 ### 多个模式
 
-在 `match` 表达式中，可以使用 `|` 语法匹配多个模式，它代表 **或**（*or*）的意思。例如，如下代码将 `x` 的值与匹配分支向比较，第一个分支有 **或** 选项，意味着如果 `x` 的值匹配此分支的任一个值，它就会运行：
+在 `match` 表达式中，可以使用 `|` 语法匹配多个模式，它代表 **或**（*or*）的意思。例如，如下代码将 `x` 的值与匹配分支相比较，第一个分支有 **或** 选项，意味着如果 `x` 的值匹配此分支的任一个值，它就会运行：
 
 ```rust
 let x = 1;
@@ -72,20 +72,20 @@ match x {
 
 上面的代码会打印 `one or two`。
 
-### 通过 `...` 匹配值的范围
+### 通过 `..=` 匹配值的范围
 
-`...` 语法允许你匹配一个闭区间范围内的值。在如下代码中，当模式匹配任何在此范围内的值时，该分支会执行：
+`..=` 语法允许你匹配一个闭区间范围内的值。在如下代码中，当模式匹配任何在此范围内的值时，该分支会执行：
 
 ```rust
 let x = 5;
 
 match x {
-    1 ... 5 => println!("one through five"),
+    1..=5 => println!("one through five"),
     _ => println!("something else"),
 }
 ```
 
-如果 `x` 是 1、2、3、4 或 5，第一个分支就会匹配。这相比使用 `|` 运算符表达相同的意思更为方便；相比 `1 ... 5`，使用 `|` 则不得不指定 `1 | 2 | 3 | 4 | 5`。相反指定范围就简短的多，特别是在希望匹配比如从 1 到 1000 的数字的时候！
+如果 `x` 是 1、2、3、4 或 5，第一个分支就会匹配。这相比使用 `|` 运算符表达相同的意思更为方便；相比 `1..=5`，使用 `|` 则不得不指定 `1 | 2 | 3 | 4 | 5`。相反指定范围就简短的多，特别是在希望匹配比如从 1 到 1000 的数字的时候！
 
 范围只允许用于数字或 `char` 值，因为编译器会在编译时检查范围不为空。`char` 和 数字值是 Rust 仅有的可以判断范围是否为空的类型。
 
@@ -95,8 +95,8 @@ match x {
 let x = 'c';
 
 match x {
-    'a' ... 'j' => println!("early ASCII letter"),
-    'k' ... 'z' => println!("late ASCII letter"),
+    'a'..='j' => println!("early ASCII letter"),
+    'k'..='z' => println!("late ASCII letter"),
     _ => println!("something else"),
 }
 ```
@@ -206,7 +206,7 @@ fn main() {
     match msg {
         Message::Quit => {
             println!("The Quit variant has no data to destructure.")
-        },
+        }
         Message::Move { x, y } => {
             println!(
                 "Move in the x direction {} and in the y direction {}",
@@ -246,7 +246,7 @@ fn main() {
 ```rust
 enum Color {
    Rgb(i32, i32, i32),
-   Hsv(i32, i32, i32)，
+   Hsv(i32, i32, i32),
 }
 
 enum Message {
@@ -267,7 +267,7 @@ fn main() {
                 g,
                 b
             )
-        },
+        }
         Message::ChangeColor(Color::Hsv(h, s, v)) => {
             println!(
                 "Change the color to hue {}, saturation {}, and value {}",
@@ -283,11 +283,11 @@ fn main() {
 
 <span class="caption">示例 18-16: 匹配嵌套的枚举</span>
 
-`match` 表达式第一个分支的模式匹配一个包含 `Color::Rgb` 枚举成员的 `Message::ChangeColor` 枚举成员，然后模式绑定了3个内部的 `i32` 值。第二个分支的模式也匹配一个 `Message::ChangeColor` 枚举成员， 但是其内部的枚举会匹配 `Color::Hsv` 枚举成员。 我们可以在一个 `match` 表达式中指定这些复杂条件，即使会涉及到两个枚举。
+`match` 表达式第一个分支的模式匹配一个包含 `Color::Rgb` 枚举成员的 `Message::ChangeColor` 枚举成员，然后模式绑定了 3 个内部的 `i32` 值。第二个分支的模式也匹配一个 `Message::ChangeColor` 枚举成员， 但是其内部的枚举会匹配 `Color::Hsv` 枚举成员。我们可以在一个 `match` 表达式中指定这些复杂条件，即使会涉及到两个枚举。
 
 #### 解构结构体和元组
 
-甚至可以用复杂的方式来混合、匹配和嵌套解构模式。如下是一个负责结构体的例子，其中结构体和元组嵌套在元组中，并将所有的原始类型解构出来：
+甚至可以用复杂的方式来混合、匹配和嵌套解构模式。如下是一个复杂结构体的例子，其中结构体和元组嵌套在元组中，并将所有的原始类型解构出来：
 
 ```rust
 # struct Point {
@@ -308,7 +308,7 @@ let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });
 
 #### 使用 `_` 忽略整个值
 
-我们已经使用过下划线作为匹配但不绑定任何值的通配符模式了。虽然下划线模式作为 `match` 表达式最后的分支特别有用，也可以将其用于任意模式，包括函数参数中，如示例 18-17 所示：
+我们已经使用过下划线（`_`）作为匹配但不绑定任何值的通配符模式了。虽然 `_` 模式作为 `match` 表达式最后的分支特别有用，也可以将其用于任意模式，包括函数参数中，如示例 18-17 所示：
 
 <span class="filename">文件名: src/main.rs</span>
 
@@ -415,7 +415,7 @@ println!("{:?}", s);
 
 <span class="caption">示例 18-22: 单独使用下划线不会绑定值</span>
 
-上面的代码能很好的运行；因为没有把 `s` 绑定到任何变量，它没有被移动。
+上面的代码能很好的运行；因为没有把 `s` 绑定到任何变量；它没有被移动。
 
 #### 用 `..` 忽略剩余值
 
@@ -524,11 +524,11 @@ fn main() {
 
     match x {
         Some(50) => println!("Got 50"),
-        Some(n) if n == y => println!("Matched, n = {:?}", n),
+        Some(n) if n == y => println!("Matched, n = {}", n),
         _ => println!("Default case, x = {:?}", x),
     }
 
-    println!("at the end: x = {:?}, y = {:?}", x, y);
+    println!("at the end: x = {:?}, y = {}", x, y);
 }
 ```
 
@@ -568,7 +568,7 @@ match x {
 
 ### `@` 绑定
 
-*at* 运算符（`@`）允许我们在创建一个存放值的变量的同时测试其值是否匹配模式。示例 18-29 展示了一个例子，这里我们希望测试 `Message::Hello` 的 `id` 字段是否位于 `3...7` 范围内，同时也希望能其值绑定到 `id_variable` 变量中以便此分支相关联的代码可以使用它。可以将 `id_variable` 命名为 `id`，与字段同名，不过出于示例的目的这里选择了不同的名称：
+*at* 运算符（`@`）允许我们在创建一个存放值的变量的同时测试其值是否匹配模式。示例 18-29 展示了一个例子，这里我们希望测试 `Message::Hello` 的 `id` 字段是否位于 `3...7` 范围内，同时也希望能将其值绑定到 `id_variable` 变量中以便此分支相关联的代码可以使用它。可以将 `id_variable` 命名为 `id`，与字段同名，不过出于示例的目的这里选择了不同的名称。
 
 ```rust
 enum Message {
@@ -578,10 +578,10 @@ enum Message {
 let msg = Message::Hello { id: 5 };
 
 match msg {
-    Message::Hello { id: id_variable @ 3...7 } => {
+    Message::Hello { id: id_variable @ 3..=7 } => {
         println!("Found an id in range: {}", id_variable)
     },
-    Message::Hello { id: 10...12 } => {
+    Message::Hello { id: 10..=12 } => {
         println!("Found an id in another range")
     },
     Message::Hello { id } => {
@@ -599,53 +599,6 @@ match msg {
 最后一个分支指定了一个没有范围的变量，此时确实拥有可以用于分支代码的变量 `id`，因为这里使用了结构体字段简写语法。不过此分支中没有像头两个分支那样对 `id` 字段的值进行测试：任何值都会匹配此分支。
 
 使用 `@` 可以在一个模式中同时测试和保存变量值。
-
-### 遗留模式： `ref` 和 `ref mut`
-
-在老版本的 Rust 中，`match` 会假设你希望移动匹配到的值。不过有时并不希望如此。例如：
-
-```rust
-let robot_name = &Some(String::from("Bors"));
-
-match robot_name {
-    Some(name) => println!("Found a name: {}", name),
-    None => (),
-}
-
-println!("robot_name is: {:?}", robot_name);
-```
-
-这里 `robot_name` 是一个 `&Option<String>`。Rust 会抱怨 `Some(name)` 不匹配 `&Option<T>`，所以不得不这么写：
-
-```rust,ignore
-let robot_name = &Some(String::from("Bors"));
-
-match robot_name {
-    &Some(name) => println!("Found a name: {}", name),
-    None => (),
-}
-
-println!("robot_name is: {:?}", robot_name);
-```
-
-接着 Rust 会说 `name` 尝试将 `String` 从 option 中移出，不过因为这是一个引用的 option，所以是借用的，因此不能被移动。这就是 `ref` 出场的地方：
-
-```rust
-let robot_name = &Some(String::from("Bors"));
-
-match robot_name {
-    &Some(ref name) => println!("Found a name: {}", name),
-    None => (),
-}
-
-println!("robot_name is: {:?}", robot_name);
-```
-
-`ref` 关键字就像模式中 `&` 的对立面；它表明 “请将 `ref` 绑定到一个 `&String` 上，不要尝试移动”。换句话说，`&Some` 中的 `&` 匹配的是一个引用，而 `ref` **创建** 了一个引用。`ref mut` 类似 `ref` 不过对应的是可变引用。
-
-无论如何，今天的 Rust 不再这样工作。如果尝试 `match` 某些借用的值，那么所有创建的绑定也都会尝试借用。这也意味着之前的代码也能正常工作。
-
-因为 Rust 是后向兼容的（backwards compatible），所以不会移除 `ref` 和 `ref mut`，同时它们在一些不明确的场景还有用，比如希望可变地借用结构体的部分值而可变地借用另一部分的情况。你可能会在老的 Rust 代码中看到它们，所以请记住它们仍有价值。
 
 ## 总结
 

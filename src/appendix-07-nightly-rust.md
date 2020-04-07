@@ -2,7 +2,7 @@
 
 > [appendix-07-nightly-rust.md](https://github.com/rust-lang/book/blob/master/src/appendix-07-nightly-rust.md)
 > <br />
-> commit 1fedfc4b96c2017f64ecfcf41a0a07e2e815f24f
+> commit 70a82519e48b8a61f98cabb8ff443d1b21962fea
 
 本附录介绍 Rust 是如何开发的以及这如何影响作为 Rust 开发者的你。
 
@@ -14,11 +14,11 @@
 
 ### Choo, Choo!（开车啦，逃）发布通道和发布时刻表（Riding the Trains）
 
-Rust 开发运行于一个 **发布时刻表**（*train schedule*）之上。也就是说，所有的开发工作都位于 Rust 仓库的 `master` 分支。发布采用 software release train 模型，其被用于 思科 IOS 等其它软件项目。Rust 有三个 **发布通道**（*release channel*）：
+Rust 开发运行于一个 **发布时刻表**（*train schedule*）之上。也就是说，所有的开发工作都位于 Rust 仓库的 `master` 分支。发布采用 software release train 模型，其被用于思科 IOS 等其它软件项目。Rust 有三个 **发布通道**（*release channel*）：
 
 * Nightly
 * Beta
-* Stable （稳定版）
+* Stable（稳定版）
 
 大部分 Rust 开发者主要采用稳定版通道，不过希望实验新功能的开发者可能会使用 nightly 或 beta 版。
 
@@ -42,6 +42,14 @@ beta:                *
 nightly: * - - * - - * - - * - - *
                      |
 beta:                *
+```
+
+比如我们发现了一个回归缺陷。好消息是在这些缺陷流入稳定发布之前还有一些时间来测试 beta 版本！fix 被合并到 `master`，为此 nightly 版本得到了修复，接着这些 fix 将 backport 到 `beta` 分支，一个新的 beta 发布就产生了：
+
+```text
+nightly: * - - * - - * - - * - - * - - *
+                     |
+beta:                * - - - - - - - - *
 ```
 
 第一个 beta 版的 6 周后，是发布稳定版的时候了！`stable` 分支从 `beta` 分支生成：
@@ -68,7 +76,7 @@ stable:                                *
 
 Rust 每 6周发布一个版本，如时钟版准确。如果你知道了某个 Rust 版本的发布时间，就可以知道下个版本的时间：6 周后。每 6 周发布版本的一个好的方面是下一班车会来得更快。如果特定版本碰巧缺失某个功能也无需担心：另一个版本很快就会到来！这有助于减少因临近发版时间而偷偷释出未经完善的功能的压力。
 
-多亏了这个过程，你总是可以切换到下一版本的 Rut 并验证是否可以轻易的升级：如果 beta 版不能如期工作，你可以向 Rust 团队报告并在发布稳定版之前得到修复！beta 版造成的破坏是非常少见的，不过 `rustc` 也不过是一个软件，可能会存在 bug。
+多亏了这个过程，你总是可以切换到下一版本的 Rust 并验证是否可以轻易的升级：如果 beta 版不能如期工作，你可以向 Rust 团队报告并在发布稳定版之前得到修复！beta 版造成的破坏是非常少见的，不过 `rustc` 也不过是一个软件，可能会存在 bug。
 
 ### 不稳定功能
 
@@ -108,8 +116,8 @@ $ rustup override set nightly
 
 那么你如何了解这些新功能呢？Rust 开发模式遵循一个 **Request For Comments (RFC) 过程**。如果你希望改进 Rust，可以编写一个提议，也就是 RFC。
 
-任何人都可以编写 RFC 来改进 Rust，同时这些 RFC 会被 Rust 团队评审和讨论，他们由很多不同分工的子团队组成。这里是 [Rust 官网上](https://www.rust-lang.org/en-US/team.html) 所有团队的总列表，其包含了项目中每个领域的团队：语言设计、编译器实现、基础设施、文档等。个个团队会阅读相应的提议和评论，编写回复，并最终达成接受或回绝功能的一致。
+任何人都可以编写 RFC 来改进 Rust，同时这些 RFC 会被 Rust 团队评审和讨论，他们由很多不同分工的子团队组成。这里是 [Rust 官网上](https://www.rust-lang.org/governance) 所有团队的总列表，其包含了项目中每个领域的团队：语言设计、编译器实现、基础设施、文档等。个个团队会阅读相应的提议和评论，编写回复，并最终达成接受或回绝功能的一致。
 
-如果功能被接受了，在 Rust 仓库会打开一个 issue，人们就可以实现它。实现功能的人当人可能不是最初提议功能的人！当实现完成后，其会合并到 `master` 分支并位于一个功能开关（feature gate）之后，正如 [“不稳定功能”(#unstable-features) 部分所讨论的。
+如果功能被接受了，在 Rust 仓库会打开一个 issue，人们就可以实现它。实现功能的人当人可能不是最初提议功能的人！当实现完成后，其会合并到 `master` 分支并位于一个功能开关（feature gate）之后，正如 [“不稳定功能”](#unstable-features) 部分所讨论的。
 
 在稍后的某个时间，一旦使用 nightly 版的 Rust 团队能够尝试这个功能了，团队成员会讨论这个功能，它如何在 nightly 中工作，并决定是否应该进入稳定版。如果决定继续推进，功能开关会移除，然后这个功能就被认为是稳定的了！并会在新的稳定版 Rust 中出现。
