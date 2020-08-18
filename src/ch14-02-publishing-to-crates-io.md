@@ -16,7 +16,7 @@ Rust 和 Cargo 有一些帮助它人更方便找到和使用你发布的包的�
 <span class="filename">文件名: src/lib.rs</span>
 
 ````rust,ignore
-/// 将给定的数字加一
+/// Adds one to the number given.
 ///
 /// # Examples
 ///
@@ -53,7 +53,7 @@ pub fn add_one(x: i32) -> i32 {
 
 #### 文档注释作为测试
 
-在文档注释中增加示例代码块是一个清楚的表明如何使用库的方法，这么做还有一个额外的好处：`cargo test` 也会像测试那样运行文档中的示例代码！没有什么比有例子的文档更好的了！也没有什么比不能正常工作的例子更糟的了，因为代码在编写文档时已经改变。尝试 `cargo test` 运行像示例 14-1 中 `add_one` 函数的文档；应该在测试结果中看到像这样的部分：
+在文档注释中增加示例代码块是一个清楚的表明如何使用库的方法，这么做还有一个额外的好处：`cargo test` 也会像测试那样运行文档中的示例代码！没有什么比有例子的文档更好的了，但最糟糕的莫过于写完文档后改动了代码，而导致例子不能正常工作。尝试 `cargo test` 运行像示例 14-1 中 `add_one` 函数的文档；应该在测试结果中看到像这样的部分：
 
 ```text
    Doc-tests my_crate
@@ -68,7 +68,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 #### 注释包含项的结构
 
-还有另一种风格的文档注释，`//!`，这为包含注释的项，而不是注释之后的项增加文档。这通常用于 crate 根文件（通常是 _src/lib.rs_）或模块的根文件为 crate 或模块整体提供文档。
+还有另一种风格的文档注释，`//!`，这为包含注释的项，而不是位于注释之后的项增加文档。这通常用于 crate 根文件（通常是 _src/lib.rs_）或模块的根文件为 crate 或模块整体提供文档。
 
 作为一个例子，如果我们希望增加描述包含 `add_one` 函数的 `my_crate` crate 目的的文档，可以在 _src/lib.rs_ 开头增加以 `//!` 开头的注释，如示例 14-2 所示：
 
@@ -77,10 +77,10 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```rust,ignore
 //! # My Crate
 //!
-//! `my_crate` 是一个使得特定计算更方便的
-//! 工具集合
+//! `my_crate` is a collection of utilities to make performing certain
+//! calculations more convenient.
 
-/// 将给定的数字加一。
+/// Adds one to the number given.
 // --snip--
 ```
 
@@ -98,7 +98,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 ### 使用 `pub use` 导出合适的公有 API
 
-第七章介绍了如何使用 `mod` 关键字来将代码组织进模块中，如何使用 `pub` 关键字将项变为公有，和如何使用 `use` 关键字将项引入作用域。然而你开发时候使用的文件架构可能并不方便用户。你的结构可能是一个包含多个层级的分层结构，不过这对于用于来说并不方便。这是因为想要使用被定义在很深层级中的类型的人可能很难发现这些类型的存在。他们也可能会厌烦使用 `use my_crate::some_module::another_module::UsefulType;` 而不是 `use my_crate::UsefulType;` 来使用类型。
+第七章介绍了如何使用 `mod` 关键字来将代码组织进模块中，如何使用 `pub` 关键字将项变为公有，和如何使用 `use` 关键字将项引入作用域。然而你开发时候使用的文件架构可能并不方便用户。你的结构可能是一个包含多个层级的分层结构，不过这对于用户来说并不方便。这是因为想要使用被定义在很深层级中的类型的人可能很难发现这些类型的存在。他们也可能会厌烦使用 `use my_crate::some_module::another_module::UsefulType;` 而不是 `use my_crate::UsefulType;` 来使用类型。
 
 公有 API 的结构是你发布 crate 时主要需要考虑的。crate 用户没有你那么熟悉其结构，并且如果模块层级过大他们可能会难以找到所需的部分。
 
@@ -243,7 +243,7 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 name = "guessing_game"
 ```
 
-即使你选择了一个唯一的名称，如果此时尝试运行 `cargo publish` 发布该 crate 的话，会得到一个一个警告接着是一个错误：
+即使你选择了一个唯一的名称，如果此时尝试运行 `cargo publish` 发布该 crate 的话，会得到一个警告接着是一个错误：
 
 ```text
 $ cargo publish
