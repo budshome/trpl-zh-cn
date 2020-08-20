@@ -4,7 +4,7 @@ author = "Steve Klabnik 和 Carol Nichols，以及来自 Rust 社区的贡献，
 description = "Rust 程序设计语言 简体中文版, rust 教程, rust 学习"
 language = "zh"
 src = "src"
-multilingual = false
+multilingual = true
 
 [output.html]
 theme = "theme"
