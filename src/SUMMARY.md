@@ -1,7 +1,7 @@
 # Rust 程序设计语言
 
-[前言](foreword.md)
 [Rust 程序设计语言](title-page.md)
+[前言](foreword.md)
 [介绍](ch00-00-introduction.md)
 
 ## 入门指南

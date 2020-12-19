@@ -1,17 +1,5 @@
 # 前言
 
-> **_声明_**
-> 
-> `《Rust 程序设计语言（第二版 & 2018 edition）》`由 [KaiserY 以及 Rust 中文社区](https://github.com/KaiserY) 翻译，源码仓库在 [GitHub](https://github.com/budshome/trpl-zh-cn)，翻译自 `Rust` 官方书籍 [*The Rust Programming Language*](https://github.com/rust-lang/book/tree/master/src)。
-> 
-> 感谢 `KaiserY 以及 Rust 中文社区`和 `Rust 官方团队`的无私奉献。
-> 
-> **本站点仅为方便学习和查阅等相关用途，书籍和译本的所有内容和相关权利属于书籍编写者和翻译者。**
-> 
-> 若有任何不当，请联系 `linshi@budshome.com` 删除。
-> 
-> 💥 **更新时间：2020-08-18**
-
 > [foreword.md](https://github.com/rust-lang/book/blob/master/src/foreword.md)
 > <br>
 > commit 1fedfc4b96c2017f64ecfcf41a0a07e2e815f24f
