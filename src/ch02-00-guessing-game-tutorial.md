@@ -166,7 +166,7 @@ io::stdin().read_line(&mut guess)
 
 ### 使用 `Result` 类型来处理潜在的错误
 
-我们还没有完全分析完这行代码。虽然这是单独一行代码，但它是一个逻辑行（虽然换行了但仍是一个语句）的第一部分。第二部分是这个方法：
+我们还没有完全分析完这行代码。虽然这是单独一行代码，但它是逻辑行（虽然换行了但仍是语句）的一部分。后一部分是这个方法：
 
 ```rust,ignore
 .expect("Failed to read line");
@@ -300,7 +300,7 @@ $ cargo build
 
 [cratesio]: https://crates.io
 
-在更新完 registry 后，Cargo 检查 `[dependencies]` 片段并下载缺失的 crate 。本例中，虽然只声明了 `rand` 一个依赖，然而 Cargo 还是额外获取了 `libc` 和 `rand_core` 的拷贝，因为 `rand` 依赖 `libc` 来正常工作。下载完成后，Rust 编译依赖，然后使用这些依赖编译项目。
+在更新完 registry 后，Cargo 检查 `[dependencies]` 片段并下载缺失的 crate 。本例中，虽然只声明了 `rand` 一个依赖，然而 Cargo 还是额外获取了 `libc` 和 `rand_core` 的拷贝，因为 `rand` 依赖 `libc` 和 `rand_core` 来正常工作。下载完成后，Rust 编译依赖，然后使用这些依赖编译项目。
 
 如果不做任何修改，立刻再次运行 `cargo build`，则不会看到任何除了 `Finished` 行之外的输出。Cargo 知道它已经下载并编译了依赖，同时 *Cargo.toml* 文件也没有变动。Cargo 还知道代码也没有任何修改，所以它不会重新编译代码。因为无事可做，它简单的退出了。
 

@@ -1,6 +1,6 @@
 ## 将 crate 发布到 Crates.io
 
-> [ch14-02-publishing-to-crates-io.md](https://github.com/rust-lang/book/blob/master/src/ch14-02-publishing-to-crates-io.md) > <br>
+> [ch14-02-publishing-to-crates-io.md](https://github.com/rust-lang/book/blob/master/src/ch14-02-publishing-to-crates-io.md) <br>
 > commit c084bdd9ee328e7e774df19882ccc139532e53d8
 
 我们曾经在项目中使用 [crates.io](https://crates.io)<!-- ignore --> 上的包作为依赖，不过你也可以通过发布自己的包来向它人分享代码。[crates.io](https://crates.io)<!-- ignore --> 用来分发包的源代码，所以它主要托管开源代码。
@@ -16,7 +16,7 @@ Rust 和 Cargo 有一些帮助它人更方便找到和使用你发布的包的�
 <span class="filename">文件名: src/lib.rs</span>
 
 ````rust,ignore
-/// 将给定的数字加一
+/// Adds one to the number given.
 ///
 /// # Examples
 ///
@@ -53,7 +53,7 @@ pub fn add_one(x: i32) -> i32 {
 
 #### 文档注释作为测试
 
-在文档注释中增加示例代码块是一个清楚的表明如何使用库的方法，这么做还有一个额外的好处：`cargo test` 也会像测试那样运行文档中的示例代码！没有什么比有例子的文档更好的了！也没有什么比不能正常工作的例子更糟的了，因为代码在编写文档时已经改变。尝试 `cargo test` 运行像示例 14-1 中 `add_one` 函数的文档；应该在测试结果中看到像这样的部分：
+在文档注释中增加示例代码块是一个清楚的表明如何使用库的方法，这么做还有一个额外的好处：`cargo test` 也会像测试那样运行文档中的示例代码！没有什么比有例子的文档更好的了，但最糟糕的莫过于写完文档后改动了代码，而导致例子不能正常工作。尝试 `cargo test` 运行像示例 14-1 中 `add_one` 函数的文档；应该在测试结果中看到像这样的部分：
 
 ```text
    Doc-tests my_crate
@@ -68,7 +68,7 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 
 #### 注释包含项的结构
 
-还有另一种风格的文档注释，`//!`，这为包含注释的项，而不是注释之后的项增加文档。这通常用于 crate 根文件（通常是 _src/lib.rs_）或模块的根文件为 crate 或模块整体提供文档。
+还有另一种风格的文档注释，`//!`，这为包含注释的项，而不是位于注释之后的项增加文档。这通常用于 crate 根文件（通常是 _src/lib.rs_）或模块的根文件为 crate 或模块整体提供文档。
 
 作为一个例子，如果我们希望增加描述包含 `add_one` 函数的 `my_crate` crate 目的的文档，可以在 _src/lib.rs_ 开头增加以 `//!` 开头的注释，如示例 14-2 所示：
 
@@ -77,10 +77,10 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```rust,ignore
 //! # My Crate
 //!
-//! `my_crate` 是一个使得特定计算更方便的
-//! 工具集合
+//! `my_crate` is a collection of utilities to make performing certain
+//! calculations more convenient.
 
-/// 将给定的数字加一。
+/// Adds one to the number given.
 // --snip--
 ```
 
@@ -111,17 +111,17 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```rust,ignore
 //! # Art
 //!
-//! 一个描述美术信息的库。
+//! A library for modeling artistic concepts.
 
 pub mod kinds {
-    /// 采用 RGB 色彩模式的主要颜色。
+    /// The primary colors according to the RYB color model.
     pub enum PrimaryColor {
         Red,
         Yellow,
         Blue,
     }
 
-    /// 采用 RGB 色彩模式的次要颜色。
+    /// The secondary colors according to the RYB color model.
     pub enum SecondaryColor {
         Orange,
         Green,
@@ -132,8 +132,8 @@ pub mod kinds {
 pub mod utils {
     use crate::kinds::*;
 
-    /// 等量的混合两个主要颜色
-    /// 来创建一个次要颜色。
+    /// Combines two primary colors in equal amounts to create
+    /// a secondary color.
     pub fn mix(c1: PrimaryColor, c2: PrimaryColor) -> SecondaryColor {
         // --snip--
 #         SecondaryColor::Orange
@@ -178,7 +178,7 @@ fn main() {
 ```rust,ignore
 //! # Art
 //!
-//! 一个描述美术信息的库。
+//! A library for modeling artistic concepts.
 
 pub use self::kinds::PrimaryColor;
 pub use self::kinds::SecondaryColor;
@@ -243,7 +243,7 @@ $ cargo login abcdefghijklmnopqrstuvwxyz012345
 name = "guessing_game"
 ```
 
-即使你选择了一个唯一的名称，如果此时尝试运行 `cargo publish` 发布该 crate 的话，会得到一个一个警告接着是一个错误：
+即使你选择了一个唯一的名称，如果此时尝试运行 `cargo publish` 发布该 crate 的话，会得到一个警告接着是一个错误：
 
 ```text
 $ cargo publish

@@ -1,8 +1,8 @@
-## 附录 A： 关键字
+## 附录 A：关键字
 
 > [appendix-01-keywords.md](https://raw.githubusercontent.com/rust-lang/book/master/src/appendix-01-keywords.md)
 > <br>
-> commit 27dd97a785794709aa87c51ab697cded41e8163a 
+> commit 27dd97a785794709aa87c51ab697cded41e8163a
 
 下面的列表包含 Rust 中正在使用或者以后会用到的关键字。因此，这些关键字不能被用作标识符（除了 “[原始标识符][raw-identifiers]” 部分介绍的原始标识符），这包括函数、变量、参数、结构体字段、模块、crate、常量、宏、静态值、属性、类型、trait 或生命周期
 的名字。
@@ -19,7 +19,7 @@
 * `continue` - 继续进入下一次循环迭代
 * `crate` - 链接（link）一个外部 **crate** 或一个代表宏定义的 **crate** 的宏变量
 * `dyn` - 动态分发 trait 对象
-* `else` - 作为 `if` 和 `if let` 控制流结构的 fallback 
+* `else` - 作为 `if` 和 `if let` 控制流结构的 fallback
 * `enum` - 定义一个枚举
 * `extern` - 链接一个外部 **crate** 、函数或变量
 * `false` - 布尔字面值 `false`
@@ -108,6 +108,6 @@ fn main() {
 
 此代码编译没有任何错误。注意 `r#` 前缀需同时用于函数名定义和 `main` 函数中的调用。
 
-原始标识符允许使用你选择的任何单词作为标识符，即使该单词恰好是保留关键字。 此外，原始标识符允许你使用以不同于你的 crate 使用的 Rust 版本编写的库。比如，`try` 在 2015 edition 中不是关键字，而在 2018 edition 则是。所以如果如果用 2015 edition 编写的库中带有 `try` 函数，在 2018 edition 中调用时就需要使用原始标识符语法，在这里是 `r#try`。有关版本的更多信息，请参见[附录 E][appendix-e].
+原始标识符允许使用你选择的任何单词作为标识符，即使该单词恰好是保留关键字。 此外，原始标识符允许你使用以不同于你的 crate 使用的 Rust 版本编写的库。比如，`try` 在 2015 edition 中不是关键字，而在 2018 edition 则是。所以如果用 2015 edition 编写的库中带有 `try` 函数，在 2018 edition 中调用时就需要使用原始标识符语法，在这里是 `r#try`。有关版本的更多信息，请参见[附录 E][appendix-e].
 
 [appendix-e]: appendix-05-editions.html
